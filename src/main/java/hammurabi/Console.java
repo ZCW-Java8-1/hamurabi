@@ -45,8 +45,8 @@ public class Console {
                 acres += num;
                 bushelsGrain -= num * landValue;
                 break;
-            }
-            else { System.out.println("O no! You do not have enough grain for that!");
+            } else {
+                System.out.println("O no! You do not have enough grain for that!");
             }
         }
 
@@ -63,15 +63,32 @@ public class Console {
                 bushelsGrain += num * landValue;
                 break;
             }
-
         }
 
     }
-    public Object askHowMuchGrainToFeedPeople() {
-        System.out.println("How much grain would you like to feed people?");
-        return null;
+
+    public void askHowMuchGrainToFeedPeople() {
+        while (true) {
+            int num = getNumber("How much grain would you like to feed people? \n");
+            if (num > bushelsGrain) {
+                System.out.println("O no! You do not have enough grain for that!");
+                continue;
+            } else {
+                bushelsGrain -= num;
+                break;
+            }
+        }
+
     }
+
+    public void askHowManyAcresToPlant() {
+        int num = getNumber("How many acres of grain do you wish to plant? \n");
+        for (int i = 0; i <= acres; i++);
+        if (num)
+    }
+
     int getNumber(String message) {
+
         while (true) {
             System.out.print(message);
             try {
@@ -84,5 +101,6 @@ public class Console {
             }
         }
     }
+
 }
 
