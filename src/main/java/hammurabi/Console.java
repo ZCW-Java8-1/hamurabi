@@ -12,12 +12,13 @@ public class Console {
     int bushelsGrain = 2800;
     int population = 100;
     int landValue = 19;
-    int price = 0;
+
 
     public void playGame() { // call methods in loop here?
         summary();
         askHowManyAcresToBuy();
         askHowMuchGrainToFeedPeople();
+        askHowManyAcresToPlant();
     }
 
 
@@ -68,11 +69,11 @@ public class Console {
     }
 
     public void askHowMuchGrainToFeedPeople() {
+
         while (true) {
             int num = getNumber("How much grain would you like to feed people? \n");
             if (num > bushelsGrain) {
                 System.out.println("O no! You do not have enough grain for that!");
-                continue;
             } else {
                 bushelsGrain -= num;
                 break;
@@ -82,9 +83,21 @@ public class Console {
     }
 
     public void askHowManyAcresToPlant() {
-        int num = getNumber("How many acres of grain do you wish to plant? \n");
-        for (int i = 0; i <= acres; i++);
-        if (num)
+
+        while (true) {
+            int num = getNumber("How many acres of grain do you wish to plant? \n");
+            if (num > acres) {
+                System.out.println("O no! You do not have enough land for that! \n");
+            } else if (num * 10 < population ) {
+                System.out.println("O no! You do not have enough people for that! \n");
+            } else if (num * 2 > bushelsGrain) {
+                System.out.println("O no! You do not have enough grain for that! \n");
+            } else {
+                bushelsGrain += num; //Karem will add harvest method for randomization
+                break;
+            }
+        }
+
     }
 
     int getNumber(String message) {
