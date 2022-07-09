@@ -32,25 +32,48 @@ public class Hammurabi {
             }
         }
     }
-    int askHowManyAcresToBuy(int price, int bushels) {return 0;}
+    int askHowManyAcresToBuy(int price, int bushels) {
+        return 0;
+    }
     //other methods go here
-    int askHowManyAcresToSell(int acresOwned) {return 0;}
+    int askHowManyAcresToSell(int acresOwned) {
+        int AcresToSell = getNumber("How many acres of land would you like to sell? ");
+        return 0;
+    }
 
-    int askHowMuchGrainToFeedPeople(int bushels) {return 0;}
+    int askHowMuchGrainToFeedPeople(int bushels) {
+        return 0;
+    }
 
-    int askHowManyAcresToPlant(int acresOwned, int population, int bushels) {return 0;};
+    int askHowManyAcresToPlant(int acresOwned, int population, int bushels) {
+        return 0;
+    };
 
-    int plagueDeaths(int population) {return 0;}
+    int plagueDeaths(int population) {
+        return 0;
+    }
 
-    int starvationDeaths(int population, int bushelsFedToPeople) {return 0;}
+    int starvationDeaths(int population, int bushelsFedToPeople) {
+        return 0;
+    }
 
-    boolean uprising(int population, int howManyPeopleStarved) {return false;}
+    boolean uprising(int population, int howManyPeopleStarved) {
+        return false;
+    }
 
-    int immigrants(int population, int acresOwned, int grainInStorage) {return 0;}
+    int immigrants(int population, int acresOwned, int grainInStorage) {
+        return 0;
+    }
 
-    int harvest(int acres, int bushelsUsedAsSeed) {return 0;}
+    int harvest(int acres, int bushelsUsedAsSeed) {
+        return 0;
+    }
 
-    int grainEatenByRats(int bushels) {return 0;}
+    int grainEatenByRats(int bushels) {
+        return 0;
+    }
 
-    int newCostOfLand() {return 0;}
+    int newCostOfLand() {
+        return 0;
+    }
 }
