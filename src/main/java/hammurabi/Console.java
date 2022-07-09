@@ -1,5 +1,6 @@
 package hammurabi;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -16,7 +17,6 @@ public class Console {
     public void playGame() { // call methods in loop here?
         summary();
         askHowManyAcresToBuy();
-        askHowManyAcresToSell();
         askHowMuchGrainToFeedPeople();
     }
 
@@ -34,38 +34,55 @@ public class Console {
     }
 
     public void askHowManyAcresToBuy() {
-        System.out.println("How many acres of land do you wish to buy?");
 
         while (true) {
-            //Scanner input = new Scanner(System.in);
-            int input = scan.nextInt();
-            if (input <= acres) {
-                acres += input;
-                System.out.println(askHowMuchGrainToFeedPeople());
-                break;
-            } else if (input == 0) {
+            int num = getNumber("How many acres of land do you wish to buy? \n");
+            //if (num < 0) continue;
+            if (num == 0) {
                 askHowManyAcresToSell();
+                break;
+            } else if (num * landValue <= bushelsGrain) {
+                acres += num;
+                bushelsGrain -= num * landValue;
+                break;
+            }
+            else { System.out.println("O no! You do not have enough grain for that!");
             }
         }
+
     }
 
     public void askHowManyAcresToSell() {
-        System.out.println("How many acres of land do you wish to sell?");
+
         while (true) {
-            //Scanner input = new Scanner(System.in);
-            int input = scan.nextInt();
-            if (input <= acres) {
-                System.out.println("You now have "+(acres -= input)+" acres of land.");
-                //break;
-            } else if (input == 0) {
-                askHowMuchGrainToFeedPeople();
+            int num = getNumber("How many acres of land do you wish to sell? \n");
+            if (num > acres) {
+                System.out.println("O no! You do not have enough land for that!");
+            } else {
+                acres -= num;
+                bushelsGrain += num * landValue;
+                break;
             }
 
         }
+
     }
     public Object askHowMuchGrainToFeedPeople() {
         System.out.println("How much grain would you like to feed people?");
         return null;
+    }
+    int getNumber(String message) {
+        while (true) {
+            System.out.print(message);
+            try {
+                int input = scan.nextInt();
+                if (input < 0) continue;
+                return input;
+            }
+            catch (InputMismatchException e) {
+                System.out.println("\"" + scan.next() + "\" isn't a number!");
+            }
+        }
     }
 }
 
