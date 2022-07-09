@@ -33,12 +33,20 @@ public class Hammurabi {
             }
         }
     }
-
-    int askHowManyAcresToBuy(int price) {
-        return 0;
+    // Jiayong
+    int askHowManyAcresToBuy(int price, int bushels) {
+        int maxAcres = bushels / price;
+        String msg = "How many acres of land would you like to buy?";
+        int input = getNumber(msg);
+        while (input > maxAcres) {
+            String newMsg = String.format("O Great Hammurabi, surely you jest! We'd need %d bushels but we only have %d!",
+                    input * price, bushels);
+            System.out.println(newMsg);
+            input = getNumber(msg);
+        }
+        return input;
     }
-
-    //other methods go here
+    // Linda
     int askHowManyAcresToSell(int acresOwned) {
         int acresToSell = getNumber("How many acres of land would you like to sell?\n");
         while (acresToSell > acresOwned) {
@@ -47,17 +55,48 @@ public class Hammurabi {
         }
         return acresToSell;
     }
-
+    // Gychu
     int askHowMuchGrainToFeedPeople(int bushels) {
-        return 0;
+        String msg = "How many bushels of grain do you want to feed your people?\n";
+        int input = getNumber(msg);
+        while (input > bushels) {
+            String newMsg = String.format("O Great Hammurabi, surely you jest! We'd need %d bushels but we only have %d!",
+                    input, bushels);
+            System.out.println(newMsg);
+            input = getNumber(msg);
+        }
+        return input;
     }
 
     int askHowManyAcresToPlant(int acresOwned, int population, int bushels) {
-        int acresToPlant = getNumber("How many acres");
-        return 0;
+        String msg = "How many acres do you wish to plant?\n";
+        int input = getNumber(msg);
+
+        while (true) {
+            if (input > acresOwned) {
+                String newMsg = String.format("O Great Hammurabi, surely you jest! We'd need %d acres but we only have %!", input, acresOwned);
+                System.out.println(newMsg);
+                input = getNumber(msg);
+                continue;
+            }
+            if (input / 10 > population) {
+                String newMsg = String.format("O Great Hammurabi, surely you jest! We'd need %d people but we only have %d!", input/10, population);
+                System.out.println(newMsg);
+                input = getNumber(msg);
+                continue;
+            }
+            if (input > bushels / 2) {
+                String newMsg = String.format("O Great Hammurabi, surely you jest! We'd need %d bushels but we only have %d!", input*2, bushels);
+                System.out.println(newMsg);
+                input = getNumber(msg);
+                continue;
+            }
+            return input;
+        }
     }
 
     int plagueDeaths(int population) {
+
         return 0;
     }
 
