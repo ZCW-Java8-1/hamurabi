@@ -25,7 +25,7 @@ public class Console {
 
         System.out.println ("How many acres of land do you wish to buy?");
         Scanner scan = new Scanner(System.in); //Create a scanner object
-        int acres = scan.nextLine(); //Read user input
+         = scan.nextLine(); //Read user input
 
 
 
