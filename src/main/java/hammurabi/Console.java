@@ -11,6 +11,8 @@ public class Console {
     int bushelsToFeed;
     int population = 100;
     int landValue = 19;
+    int deaths = 0;
+    int immigrants = 5;
 
 
     public void playGame() { // call methods in loop here?
@@ -21,14 +23,22 @@ public class Console {
             askHowManyAcresToBuy();
             askHowMuchGrainToFeedPeople();
             askHowManyAcresToPlant();
-            int deaths = Calculations.starvationDeaths(population, bushelsToFeed);
+
+            population -= Calculations.plagueDeaths(population);
+
+            deaths = Calculations.starvationDeaths(population, bushelsToFeed);
             if (Calculations.uprising(population,deaths)) {
                 System.out.println("O great Hammurabi, you have failed your people. " +
                         "Too many people have starved and there has been an uprising. " +
                         "Your rule is now over." );
                 break;
             }
-            population -= Calculations.starvationDeaths(population, bushelsToFeed);
+            population -= deaths;
+
+            if (deaths == 0) {
+                immigrants = Calculations.immigrants(population, acres, bushelsGrain);
+                population += immigrants;
+            }
             currentYear++;
         }
 
@@ -47,8 +57,8 @@ public class Console {
     public void summary() {
         System.out.println("O great Hammurabi!\n" +
                 "You are in year " + currentYear + " of your ten year rule.\n" +
-                //"In the previous year 0 people starved to death.\n" +
-                //"In the previous year 5 people entered the kingdom.\n" +
+                "In the previous year "+deaths+" people starved to death.\n" +
+                "In the previous year "+immigrants+" people entered the kingdom.\n" +
                 "The population is now " + population + ".\n" +
                 "We harvested " + bushelsGrain + " bushels at 3 bushels per acre.\n" +
                 //"Rats destroyed 200 bushels, leaving 2800 bushels in storage.\n" +
