@@ -9,6 +9,7 @@ public class Console {
     int acres = 1000;
     int bushelsGrain = 2800;
     int bushelsToFeed;
+    int bushelsHarvested = 3000;
     int population = 100;
     int landValue = 19;
     int deaths = 0;
@@ -60,10 +61,11 @@ public class Console {
                 "In the previous year "+deaths+" people starved to death.\n" +
                 "In the previous year "+immigrants+" people entered the kingdom.\n" +
                 "The population is now " + population + ".\n" +
-                "We harvested " + bushelsGrain + " bushels at 3 bushels per acre.\n" +
+                "We harvested " + bushelsHarvested + " bushels at 3 bushels per acre.\n" +
+                "We now have "+bushelsGrain+" bushels of grain.\n" +
                 //"Rats destroyed 200 bushels, leaving 2800 bushels in storage.\n" +
                 "The city owns " + acres + " acres of land.\n"); //delete once next line is needed
-        //"Land is currently worth "+landValue+" bushels per acre.");
+                //"Land is currently worth "+landValue+" bushels per acre.");
     }
 
     public void askHowManyAcresToBuy() {
@@ -126,6 +128,7 @@ public class Console {
             } else if (num * 2 > bushelsGrain) {
                 System.out.println("O no! You do not have enough grain for that! \n");
             } else {
+                bushelsHarvested = num;
                 bushelsGrain += num; //Karem will add harvest method for randomization
                 break;
             }
