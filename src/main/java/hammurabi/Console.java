@@ -6,12 +6,7 @@ import java.util.Scanner;
 public class Console {
     Random rand = new Random();
 
-    public static void main(String\[\] args) {
-        new Console().playGame();
-    }
-
     public void playGame() {
-
         int acres = 0;
         int grain = 0;
         int population = 0;
