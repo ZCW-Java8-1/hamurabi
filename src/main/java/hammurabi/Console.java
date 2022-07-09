@@ -1,10 +1,9 @@
 package hammurabi;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Console {
-    Scanner scan = new Scanner(System.in); //Create a scanner object
+    Scanner scan = new Scanner(System.in);
     int currentYear = 1;
     int acres = 1000;
     int bushelsGrain = 2800;
@@ -15,36 +14,26 @@ public class Console {
     int deaths = 0;
     int immigrants = 5;
 
+    public void playGame() {
 
-    public void playGame() { // call methods in loop here?
         instructions();
-
         while(currentYear < 11) {
             summary();
+            // user decisions
             askHowManyAcresToBuy();
             askHowMuchGrainToFeedPeople();
             askHowManyAcresToPlant();
-
+            // PLAGUE
             population -= Calculations.plagueDeaths(population);
-
-            deaths = Calculations.starvationDeaths(population, bushelsToFeed);
-            if (Calculations.uprising(population,deaths)) {
-                System.out.println("O great Hammurabi, you have failed your people. " +
-                        "Too many people have starved and there has been an uprising. " +
-                        "Your rule is now over." );
-                break;
-            }
-            population -= deaths;
-
-            if (deaths == 0) {
-                immigrants = Calculations.immigrants(population, acres, bushelsGrain);
-                population += immigrants;
-            } else {
-                immigrants = 0;
-            }
+            // STARVATION & UPRISING
+            if(starvation()) break;
+            // IMMIGRATION
+            immigration();
+            // TODO HARVEST
+            // TODO RATS
+            // TODO VARIABLE LAND COST
             currentYear++;
         }
-
 
     }
 
@@ -144,7 +133,28 @@ public class Console {
 
     }
 
-    int getNumber(String message) {
+    public boolean starvation() {
+        deaths = Calculations.starvationDeaths(population, bushelsToFeed);
+        if (Calculations.uprising(population,deaths)) {
+            System.out.println("O great Hammurabi, you have failed your people. " +
+                    "Too many people have starved and there has been an uprising. " +
+                    "Your rule is now over." );
+            return true; // starvation will end the game
+        }
+        population -= deaths;
+        return false;
+    }
+
+    public void immigration() {
+        if (deaths == 0) {
+            immigrants = Calculations.immigrants(population, acres, bushelsGrain);
+            population += immigrants;
+        } else {
+            immigrants = 0;
+        }
+    }
+
+    public int getNumber(String message) {
 
         while (true) {
             System.out.print(message);
