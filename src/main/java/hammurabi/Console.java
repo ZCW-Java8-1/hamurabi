@@ -39,6 +39,8 @@ public class Console {
             if (deaths == 0) {
                 immigrants = Calculations.immigrants(population, acres, bushelsGrain);
                 population += immigrants;
+            } else {
+                immigrants = 0;
             }
             currentYear++;
         }
@@ -47,13 +49,19 @@ public class Console {
     }
 
     public void instructions() {
-        System.out.println("Congratulations, you are the newest ruler of ancient Sumer, elected for a ten year term of office. Your duties are to dispense food, direct farming, and buy and sell land as needed to support your people. Watch out for rat infestiations and the plague! Grain is the general currency, measured in bushels. The following will help you in your decisions:\n" +
+        System.out.println("Congratulations, you are the newest ruler of ancient Sumer, \n" +
+                "elected for a ten year term of office. Your duties are to dispense food, \n" +
+                "direct farming, and buy and sell land as needed to support your people. \n" +
+                "Watch out for rat infestations and the plague! Grain is the general currency, \n" +
+                "measured in bushels. The following will help you in your decisions:\n" +
                 "\n" +
-                "Each person needs at least 20 bushels of grain per year to survive\n" +
-                "Each person can farm at most 10 acres of land\n" +
-                "It takes 2 bushels of grain to farm an acre of land\n" +
-                "The market price for land fluctuates yearly\n" +
-                "Rule wisely and you will be showered with appreciation at the end of your term. Rule poorly and you will be kicked out of office!");
+                "* Each person needs at least 20 bushels of grain per year to survive\n" +
+                "* Each person can farm at most 10 acres of land\n" +
+                "* It takes 2 bushels of grain to farm an acre of land\n" +
+                "* The market price for land fluctuates yearly\n" +
+                "\n" +
+                "Rule wisely and you will be showered with appreciation at the end of \n" +
+                "your term. Rule poorly and you will be kicked out of office! \n");
     }
     public void summary() {
         System.out.println("O great Hammurabi!\n" +
