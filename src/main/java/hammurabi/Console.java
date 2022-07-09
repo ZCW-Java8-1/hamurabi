@@ -88,7 +88,7 @@ public class Console {
             int num = getNumber("How many acres of grain do you wish to plant? \n");
             if (num > acres) {
                 System.out.println("O no! You do not have enough land for that! \n");
-            } else if (num * 10 < population ) {
+            } else if (num * 10 > population ) {
                 System.out.println("O no! You do not have enough people for that! \n");
             } else if (num * 2 > bushelsGrain) {
                 System.out.println("O no! You do not have enough grain for that! \n");
