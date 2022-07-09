@@ -20,7 +20,6 @@ public class Hammurabi {
         Integer landValue = 19;
 
         // statements go after the declarations
-        System.out.println(askHowManyAcresToSell(123));
     }
 
     int getNumber(String message) {
@@ -96,7 +95,9 @@ public class Hammurabi {
     }
 
     int plagueDeaths(int population) {
-
+        if (rand.nextInt(101) <= 15)  {
+            return population / 2;
+        }
         return 0;
     }
 
@@ -105,15 +106,16 @@ public class Hammurabi {
     }
 
     boolean uprising(int population, int howManyPeopleStarved) {
-        return false;
+        return (((double)howManyPeopleStarved / population) >= 0.45);
     }
 
     int immigrants(int population, int acresOwned, int grainInStorage) {
-        return 0;
+        return (20 * acresOwned + grainInStorage) / (100 * population) + 1;
     }
 
-    int harvest(int acres, int bushelsUsedAsSeed) {
-        return 0;
+    int harvest(int acres) {
+        int yield = rand.nextInt(1,7);
+        return acres * yield;
     }
 
     int grainEatenByRats(int bushels) {
@@ -121,6 +123,6 @@ public class Hammurabi {
     }
 
     int newCostOfLand() {
-        return 0;
+        return rand.nextInt(17,24);
     }
 }
