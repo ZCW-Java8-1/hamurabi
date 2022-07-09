@@ -1,15 +1,14 @@
 package hammurabi;
 
 import java.util.InputMismatchException;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Console {
     Scanner scan = new Scanner(System.in); //Create a scanner object
-    Random rand = new Random();
     int currentYear = 1;
     int acres = 1000;
     int bushelsGrain = 2800;
+    int bushelsToFeed;
     int population = 100;
     int landValue = 19;
 
@@ -22,6 +21,14 @@ public class Console {
             askHowManyAcresToBuy();
             askHowMuchGrainToFeedPeople();
             askHowManyAcresToPlant();
+            int deaths = Calculations.starvationDeaths(population, bushelsToFeed);
+            if (Calculations.uprising(population,deaths)) {
+                System.out.println("O great Hammurabi, you have failed your people. " +
+                        "Too many people have starved and there has been an uprising. " +
+                        "Your rule is now over." );
+                break;
+            }
+            population -= Calculations.starvationDeaths(population, bushelsToFeed);
             currentYear++;
         }
 
@@ -91,6 +98,7 @@ public class Console {
                 System.out.println("O no! You do not have enough grain for that!");
             } else {
                 bushelsGrain -= num;
+                bushelsToFeed = num;
                 break;
             }
         }
