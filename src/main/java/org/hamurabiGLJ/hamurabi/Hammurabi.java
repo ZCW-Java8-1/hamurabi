@@ -6,13 +6,19 @@ public class Hammurabi {
     Random rand = new Random();  // this is an instance variable
     Scanner scanner = new Scanner(System.in);
 
+
     public static void main(String[] args) { // required in every Java program
         new Hammurabi().playGame();
     }
 
     void playGame() {
         // declare local variables here: grain, population, etc.
-        // statements go after the declations
+        Integer grain = 2800;
+        Integer population = 100;
+        Integer land = 1000;
+        Integer landValue = 19;
+
+        // statements go after the declarations
     }
 
     int getNumber(String message) {
