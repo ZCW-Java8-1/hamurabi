@@ -45,9 +45,9 @@ public class HammurabiTest {
     
     @Test
     public final void testStarvationDeaths() {
-        int deaths = ham.starvationDeaths(100, 1639);
-        assertEquals("Wrong number of starvations deaths.", 19, deaths);
-        deaths = ham.starvationDeaths(100, 2500);
+        int deaths = Calculations.starvationDeaths(100, 1639);
+        assertEquals("Wrong number of starvation deaths.", 19, deaths);
+        deaths = Calculations.starvationDeaths(100, 2500);
         if (deaths < 0) {
             fail("You starved a negative number of people!");
         }

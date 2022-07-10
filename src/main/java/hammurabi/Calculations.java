@@ -2,8 +2,8 @@ package hammurabi;
 
 import java.util.*;
 public class Calculations {
-    // calls from Console class come here to these methods
     static Random rand = new Random();
+
     public static Integer plagueDeaths(int population) {
         if (rand.nextInt(100) < 15) {
             return population / 2;
