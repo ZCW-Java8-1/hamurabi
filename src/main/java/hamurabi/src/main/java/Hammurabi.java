@@ -194,7 +194,7 @@ public class Hammurabi {
 
         while (year <= 10) {
 
-            //Win Condition
+        //WIN CONDITION
             if (year == 10) {
                 System.out.println("Congraturation!\n" +
                         "This story is happy end.\n" +
@@ -219,7 +219,7 @@ public class Hammurabi {
             } catch (Exception e) {
             }
 
-            //Review Last Year
+        //REVIEW LAST YEAR
             System.out.println("""
                     O Great Hammurabi, how the time has flown! A year has passed since last we met.
                     Allow me to review your choices for last year.
@@ -246,7 +246,7 @@ public class Hammurabi {
                     "This year it will cost " + YELLOW_BRIGHT + costOfLand + TEXT_RESET + " bushels of grain per acre of land.");
 
 
-            //PLAGUE ROLL
+        //PLAGUE ROLL
             plagueDeaths = People.plagueDeaths(currentPop);
             totalDeaths += plagueDeaths;
             if (plagueDeaths == 0) {
@@ -257,11 +257,11 @@ public class Hammurabi {
                         "We shall build a grand memorial in their memory.\n\n");
             }
 
-            //STARVATION DEATHS AND UPRISING!
+        //STARVATION DEATHS AND UPRISING!
             starvationDeaths = People.starvationDeaths(currentPop, bushelsToFeedPeople);
             totalDeaths += starvationDeaths;
             if (starvationDeaths == 0) {
-                System.out.println("Our people were well fed this year! No citizens died from starvation.");
+//                System.out.println("Our people were well fed this year! No citizens died from starvation.");
             } else if (starvationDeaths > 0) {
                 if (People.uprising(currentPop, starvationDeaths)) {
                     System.out.println("Sire! More than half of our people starved to death this year!\n" +
@@ -286,7 +286,7 @@ public class Hammurabi {
                         CYAN_BRIGHT + currentPop + TEXT_RESET + " citizens remain.");
             }
 
-            //IMMIGRATION
+        //IMMIGRATION
             immigrants = People.immigrants(currentPop, currentLand, currentBushels);
             currentPop += immigrants;
             totalImmigrants += immigrants;
@@ -302,7 +302,7 @@ public class Hammurabi {
                         immigrants + " joined our population, increasing our total population to " + CYAN_BRIGHT + currentPop + TEXT_RESET + ".");
             }
 
-            //HARVEST
+        //HARVEST
             harvest = Bushels.harvest(landToPlant);
             currentBushels += harvest;
             totalHarvest += harvest;
@@ -310,7 +310,7 @@ public class Hammurabi {
                     "harvested " + YELLOW_BRIGHT + harvest + TEXT_RESET + " bushels of grain, bringing our total " +
                     "amount of grain stored up to " + YELLOW_BRIGHT + currentBushels + TEXT_RESET + ".");
 
-            //RATS!!!!!!!
+        //RATS!!!!!!!
             ratFood = Bushels.grainEatenByRats(currentBushels);
             currentBushels -= ratFood;
             if (ratFood != 0) {
@@ -320,7 +320,7 @@ public class Hammurabi {
                         YELLOW_BRIGHT + currentBushels + TEXT_RESET + " bushels of grain remain.");
             }
 
-            //AFTER METHODS RUN, HERE IS THE REST OF THE UPDATE!
+        //AFTER METHODS RUN, HERE IS THE REST OF THE UPDATE!
 
             System.out.println("My King, it is that time of year again. With the news delivered you must make decisions\n" +
                     "about what to do in the coming year. Here are your holdings at the beginning of this year: \n" +
