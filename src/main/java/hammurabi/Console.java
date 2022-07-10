@@ -35,7 +35,8 @@ public class Console {
             immigration();
             // TODO HARVEST (update harvest quality for summary)
             // TODO RATS (add to running death total)
-            // TODO VARIABLE LAND COST
+            // NEW LAND COST
+            landValue = Calculations.newCostOfLand();
             currentYear++;
         }
         review();
@@ -61,7 +62,7 @@ public class Console {
 
         System.out.println("O great Hammurabi!\n" +
                 "You are in year " + currentYear + " of your ten year rule.");
-        if (plague) System.out.println("Plague has stricken your people and HALF of them perished");
+        if (plague) System.out.println("Plague has stricken your people and HALF of them perished.");
         System.out.println("In the previous year " + deaths + " people starved to death.\n" +
                 "In the previous year " + immigrants + " people entered the kingdom.\n" +
                 "The population is now " + population + ".\n" +
