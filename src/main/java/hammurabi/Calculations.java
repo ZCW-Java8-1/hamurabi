@@ -25,7 +25,7 @@ public class Calculations {
     }
 
     public static Integer harvest(int acres) {
-       return acres * (rand.nextInt(6 - 1 + 1) +1);
+       return acres * (rand.nextInt(6) + 1);
     }
 
     public static Integer grainEatenByRats(int bushels) {
