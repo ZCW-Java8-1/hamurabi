@@ -270,7 +270,8 @@ public class Hammurabi {
                             "the gods, and restore favor to our lands. I must flee the palace at once, good luck to you!\n\n" +
                             RED_BRIGHT + "YOU WERE SACRIFICED TO THE GODS\n" + TEXT_RESET +
                             "It was a beautiful ceremony.\n\n\n" +
-                            "Game Over");
+                            "Game Over\n\n\n" +
+                            "Would you like to play again?  Enter y/n");
                     String playAgain;
                     playAgain = scanner.nextLine();
                     if (playAgain.equals("y")) {
