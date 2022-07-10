@@ -7,22 +7,15 @@ import org.junit.Test;
 
 public class HammurabiTest {
     
-    Calculations ham;
-    
     boolean about(double expected, double actual) {
         return actual > 0.90 * expected && actual < 1.10 * expected;
-    }
-
-    @Before
-    public void setUp() throws Exception {
-        ham = new Calculations();
     }
 
     @Test
     public final void testPlagueDeaths1() {
         int number_of_plagues = 0;
         for (int i = 0; i < 10000; i++) {
-            int deaths = ham.plagueDeaths(100);
+            int deaths = Calculations.plagueDeaths(100);
             if (deaths > 0) {
                 number_of_plagues += 1;
             }
@@ -36,7 +29,7 @@ public class HammurabiTest {
     public final void testPlagueDeaths2() {
         int deaths = 0;
         for (int i = 0; i < 10000; i++) {
-            deaths = ham.plagueDeaths(100);
+            deaths = Calculations.plagueDeaths(100);
             if (deaths > 0) break;
         }
         assertEquals("In a plague, " + deaths + "% of your people die, not 50%.",
@@ -55,13 +48,13 @@ public class HammurabiTest {
 
     @Test
     public final void testUprising() {
-        assertTrue("Should have had an uprising!", ham.uprising(1000, 451));
-        assertFalse("Should not have had an uprising!", ham.uprising(1000, 449));
+        assertTrue("Should have had an uprising!", Calculations.uprising(1000, 451));
+        assertFalse("Should not have had an uprising!", Calculations.uprising(1000, 449));
     }
 
     @Test
     public final void testImmigrants() {
-        int imm = ham.immigrants(10, 1200, 500);
+        int imm = Calculations.immigrants(10, 1200, 500);
         assertEquals("Wrong number of immigrants.", 25, imm);
     }
 
@@ -70,7 +63,7 @@ public class HammurabiTest {
         // TODO need to see how this test is using randoms
         int[] yield = new int[7];
         for (int i = 0; i < 1000; i++) {
-            int harvest = ham.harvest(1, 100); // 100 added here by Ryan to compile
+            int harvest = Calculations.harvest(1, 100); // 100 added here by Ryan to compile
             assertTrue("Illegal harvest per acre: " + harvest, harvest > 0 && harvest <= 6);
             yield[harvest] += 1;
         }
@@ -83,7 +76,7 @@ public class HammurabiTest {
     public final void testGrainEatenByRats1() {
         int infestations = 0;
         for (int i = 0; i < 1000; i++) {
-            int eaten = ham.grainEatenByRats(100);
+            int eaten = Calculations.grainEatenByRats(100);
             if (eaten > 0) {
                 infestations += 1;
             }
@@ -98,7 +91,7 @@ public class HammurabiTest {
         int percent = 0;
         int[] counts = new int[31];
         for (int i = 0; i < 10000; i++) {
-            percent = ham.grainEatenByRats(100);
+            percent = Calculations.grainEatenByRats(100);
             if (percent == 0) continue;
             counts[percent] += 1;
             assertTrue("Rats ate " + percent + "% of your grain, not 10% to 30%.",
@@ -113,7 +106,7 @@ public class HammurabiTest {
     public final void testNewCostOfLand() {
         int[] cost = new int[24];
         for (int i = 0; i < 1000; i++) {
-            int price = ham.newCostOfLand();
+            int price = Calculations.newCostOfLand();
             assertTrue("Illegal cost of land: " + price, price >= 17 && price <= 23);
             cost[price] += 1;
         }

@@ -9,6 +9,7 @@ public class Console {
     int bushelsGrain = 2800;
     int bushelsToFeed;
     int bushelsHarvested = 3000;
+    int bushelsEatenByRats = 200;
     int population = 100;
     int landValue = 19;
     int deaths = 0;
@@ -16,6 +17,7 @@ public class Console {
     boolean plague = false;
     boolean uprising = false;
     int immigrants = 5;
+    int harvestQuality = 3;
 
     public void playGame() {
         instructions();
@@ -31,7 +33,7 @@ public class Console {
             if(starvation()) break;
             // IMMIGRATION
             immigration();
-            // TODO HARVEST
+            // TODO HARVEST (update harvest quality for summary)
             // TODO RATS (add to running death total)
             // TODO VARIABLE LAND COST
             currentYear++;
@@ -56,6 +58,7 @@ public class Console {
     }
 
     public void summary() {
+
         System.out.println("O great Hammurabi!\n" +
                 "You are in year " + currentYear + " of your ten year rule.");
         if (plague) System.out.println("Plague has stricken your people and HALF of them perished");
@@ -63,14 +66,17 @@ public class Console {
                 "In the previous year " + immigrants + " people entered the kingdom.\n" +
                 "The population is now " + population + ".\n" +
                 "We harvested " + bushelsHarvested + " bushels at 3 bushels per acre.\n" +
+                //"Rats destroyed " + bushelsEatenByRats + " bushels, leaving 2800 bushels in storage.\n" +
                 "We now have " + bushelsGrain + " bushels of grain.\n" +
-                //"Rats destroyed 200 bushels, leaving 2800 bushels in storage.\n" +
-                "The city owns " + acres + " acres of land.\n"); //delete once next line is needed
-                //"Land is currently worth "+landValue+" bushels per acre.");
+                "The city owns " + acres + " acres of land.\n" +
+                "Land is currently worth " + landValue + " bushels per acre.");
+
         plague = false; // resets plague status
+
     }
 
     public void review() {
+
         if (uprising) {
             System.out.println("O great Hammurabi, you have failed your people. " +
                     "Too many people have starved and there has been an uprising. " +
@@ -82,6 +88,7 @@ public class Console {
                     "\nYou leave your term with " + bushelsGrain + " bushels of grain \n" +
                     "and " + acres + "\n acres of land.");
         }
+
     }
 
     public void askHowManyAcresToBuy() {
