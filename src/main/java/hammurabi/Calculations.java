@@ -25,14 +25,23 @@ public class Calculations {
     }
 
     public static Integer harvest(int acres, int bushelsUsedAsSeed) {
-        return null;
+       return acres * (rand.nextInt(6 - 1 + 1) +1);
+
     }
 
     public static Integer grainEatenByRats(int bushels) {
-        return null;
+        if (rand.nextInt(100) < 40) {
+            return (int) (bushels * .01 * (rand.nextInt(30 - 10 + 1) + 10));
+        }
+        return 0;
     }
 
     public static Integer newCostOfLand() {
-        return null;
+        return (rand.nextInt(23 - 17 + 1) + 17);
     }
+
+
+
+
+    //git push origin Karem
 }
