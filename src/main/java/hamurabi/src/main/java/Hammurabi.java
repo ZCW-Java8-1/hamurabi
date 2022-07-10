@@ -279,7 +279,6 @@ public class Hammurabi {
                     } else if (playAgain.equals("n")) {
                         break;
                     }
-
                 }
                 currentPop = currentPop - starvationDeaths;
                 System.out.println("Though you made the wise decision to trust our people to ration their food wisely,\n" +
