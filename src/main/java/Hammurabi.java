@@ -29,6 +29,8 @@ public class Hammurabi {
 
         System.out.println("Welcome, great Hammurabi! You have been chosen to govern the people " + "for the next " + yearsLeft + " years.\nBefore you begin your reign please consider the following: " + "Your starting population is " + population + "\nYour starting land is " + acresOwned + " acres.\nYour starting" + " grain reserves are " + bushels + " bushels.\nThe current value of land is " + newCostOfLand + " bushels/acre");
 
+
+
     }
 
     //THE FOLLOWING METHODS ARE IN SEQUENCE FROM INSTRUCTIONS
@@ -64,51 +66,54 @@ public class Hammurabi {
      **/
 
     public int plagueDeaths(int population) {
+        int previousPopulation = population; //stores the previousPopulation before the if statement so i can compare original value to modified value
         if (Math.random() * 100 <= 15) { //rolls to see if plague will occur
             population = population / 2; //if plague occurs then reduce population by half
         }
-        return population;
+        int deaths = previousPopulation - population;
+        return deaths;
     }
 
     public int starvationDeaths(int population, int bushelsFedToPeople) {
-        if (bushelsFedToPeople < population * 20) {
-            population -= population - bushelsFedToPeople; //calculate how many people will die and update the population count
-
-            return population;
+        int starvationDeaths = 0;
+        int originalPopulation = population;
+        int bushelsRequired = originalPopulation * 40;
+        if (bushelsFedToPeople < bushelsRequired) {
+            starvationDeaths = originalPopulation - (bushelsRequired - (bushelsFedToPeople / 40)); //calculate how many people will die and update the population count
         }
+        return starvationDeaths;
+    }
 
-        public boolean uprising ( int population, int howManyPeopleStarved){
-            return howManyPeopleStarved > (45 / 100) * population)
-            ; //checks if people who died of starvation exceeds 45% of the population
-        }
+    public boolean uprising(int population, int howManyPeopleStarved) {
+        return howManyPeopleStarved > (0.45 * population); //checks if people who died of starvation exceeds 45% of the population
+    }
 
-        public int immigrants ( int population, int acres, int bushels){
-            population += acres * bushels + (bushels / (100 * population + 1));
+    public int immigrants(int population, int acres, int bushels) {
+        int populationGrowth = (20 * acres + bushels) / (100*population)+1;
 
-            return 0;
-        }
+        return populationGrowth;
+    }
 
-        public int harvest ( int acres, int bushelsUsedAsSeed, int harvestModifier){
-            int harvestValue = ((int) Math.random() * 6 + 1) * bushelsUsedAsSeed; // calculates harvest value by applying the random multiplier
-            return harvestValue;
-        }
+    public int harvest(int acres, int bushelsUsedAsSeed) {
+        int harvestValue = ((int) Math.random() * 6 + 1) * bushelsUsedAsSeed; // calculates harvest value by applying the random multiplier
+        return harvestValue;
+    }
 
-        public int grainEatenByRats ( int bushels, int chanceOfPlague){
-            int plagueChance = (int) Math.random() * 41);
-            int amountEaten = (int) Math.random() * 21 + 10;
+    public int grainEatenByRats(int bushels, int chanceOfPlague) {
+        int originalBushelCount = bushels;
+        int plagueChance = (int) Math.random() * 41;
+        int amountEaten = (int) Math.random() * 21 + 10;
 
-            return bushels = bushels % bushels * amountEaten / 100 ;
-        }
+        return originalBushelCount % bushels * amountEaten / 100;
+    }
 
-        public int newCostOfLand (int costOfLand){
-            costOfLand = (int) Math.random() * 7 + 17;
+    public int newCostOfLand(int costOfLand) {
+        costOfLand = (int) Math.random() * 7 + 17;
 
-            return costOfLand;
-        }
-
-
+        return costOfLand;
     }
 }
+
 
 
 
