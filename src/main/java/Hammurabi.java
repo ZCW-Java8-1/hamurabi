@@ -29,6 +29,18 @@ public class Hammurabi {
 
         System.out.println("Welcome, great Hammurabi! You have been chosen to govern the people " + "for the next " + yearsLeft + " years.\nBefore you begin your reign please consider the following: " + "Your starting population is " + population + "\nYour starting land is " + acresOwned + " acres.\nYour starting" + " grain reserves are " + bushels + " bushels.\nThe current value of land is " + newCostOfLand + " bushels/acre");
 
+        while(uprising = false){ //game continues as long as there's no uprising
+            for (int i = 0; i <= 10; i++) {
+                
+
+
+
+
+
+
+            }
+
+        }
 
     }
 
