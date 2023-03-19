@@ -30,7 +30,6 @@ public class Hammurabi {
         System.out.println("Welcome, great Hammurabi! You have been chosen to govern the people " + "for the next " + yearsLeft + " years.\nBefore you begin your reign please consider the following: " + "Your starting population is " + population + "\nYour starting land is " + acresOwned + " acres.\nYour starting" + " grain reserves are " + bushels + " bushels.\nThe current value of land is " + newCostOfLand + " bushels/acre");
 
 
-
     }
 
     //THE FOLLOWING METHODS ARE IN SEQUENCE FROM INSTRUCTIONS
@@ -76,10 +75,14 @@ public class Hammurabi {
 
     public int starvationDeaths(int population, int bushelsFedToPeople) {
         int starvationDeaths = 0;
-        int originalPopulation = population;
-        int bushelsRequired = originalPopulation * 40;
+        int bushelsRequired = population * 20; //population * 40 returns total food required
+        int bushelsDeficit = (bushelsRequired - bushelsFedToPeople); //bushelsRequired - bushelsFed = busheslDeficit
         if (bushelsFedToPeople < bushelsRequired) {
-            starvationDeaths = originalPopulation - (bushelsRequired - (bushelsFedToPeople / 40)); //calculate how many people will die and update the population count
+            if (bushelsDeficit / 20 % 2 != 0) {
+                starvationDeaths = bushelsDeficit / 20;
+            } else {
+                starvationDeaths = bushelsDeficit / 20 + 1;
+            }
         }
         return starvationDeaths;
     }
@@ -89,27 +92,32 @@ public class Hammurabi {
     }
 
     public int immigrants(int population, int acres, int bushels) {
-        int populationGrowth = (20 * acres + bushels) / (100*population)+1;
+        int populationGrowth = (20 * acres + bushels) / (100 * population) + 1;
 
         return populationGrowth;
     }
 
-    public int harvest(int acres, int bushelsUsedAsSeed) {
-        int harvestValue = ((int) Math.random() * 6 + 1) * bushelsUsedAsSeed; // calculates harvest value by applying the random multiplier
+    public int harvest(int bushelsUsedAsSeed) {
+        int harvestValue = ((int) (Math.random() * 6) + 1) * bushelsUsedAsSeed; // calculates harvest value by applying the random multiplier
         return harvestValue;
     }
 
-    public int grainEatenByRats(int bushels, int chanceOfPlague) {
-        int originalBushelCount = bushels;
-        int plagueChance = (int) Math.random() * 41;
-        int amountEaten = (int) Math.random() * 21 + 10;
-
-        return originalBushelCount % bushels * amountEaten / 100;
+    public int grainEatenByRats(int bushels) {
+        int eatenRand = (int) (Math.random() * 3) + 1; //random num from 1-3
+        int eatenPercent = (eatenRand * 10) / 100; //converts eaten amount to a percent;
+        int ratRand = (int) (Math.random() * 10) + 1; //random num from 1-11
+        int amountEaten = (int) Math.ceil(bushels - eatenPercent);
+        if (ratRand > 0 && ratRand <= 4) {
+            return amountEaten;
+        }
+        else return 0;
     }
 
-    public int newCostOfLand(int costOfLand) {
-        costOfLand = (int) Math.random() * 7 + 17;
 
+    public int newCostOfLand() {
+       Random rand = new Random();
+        int costOfLand = rand.nextInt(7) + 17; //* (max - min) + min with max being exclusive and min inclusive
+                                                          //24 - 17 = 7    17
         return costOfLand;
     }
 }
