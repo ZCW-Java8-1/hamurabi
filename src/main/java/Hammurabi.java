@@ -40,7 +40,7 @@ public class Hammurabi {
         System.out.println("How maybe acres would you like to buy this round? Please choose a value between 0 and " + bushels / price);
         int acresToBuy = scanner.nextInt();
         //if (acresToBuy * price <= price * bushels) //use this condition outside of the method
-            return acresToBuy;
+        return acresToBuy;
     }
 
     public int askHowManyAcresToSell(int acresOwned) {
@@ -64,48 +64,46 @@ public class Hammurabi {
      **/
 
     public int plagueDeaths(int population) {
-        if (Math.random() * 100 <= 15) {
-            this.population = population / 2;
+        if (Math.random() * 100 <= 15) { //rolls to see if plague will occur
+            population = population / 2; //if plague occurs then reduce population by half
         }
-        return population - this.population;
+        return population;
     }
 
     public int starvationDeaths(int population, int bushelsFedToPeople) {
         if (bushelsFedToPeople < population * 20) {
-            System.out.println(this.population - this.bushelsFedToPeople + " people have died due to starvation!");
-            this.population -= this.population - this.bushelsFedToPeople; //calculate how many people will die and update the population count
+            population -= population - bushelsFedToPeople; //calculate how many people will die and update the population count
 
             return population;
         }
 
-        public boolean uprising (this.population,int howManyPeopleStarved){
-            if ()
-
-                return 0;
+        public boolean uprising ( int population, int howManyPeopleStarved){
+            return howManyPeopleStarved > (45 / 100) * population)
+            ; //checks if people who died of starvation exceeds 45% of the population
         }
 
         public int immigrants ( int population, int acres, int bushels){
-            if (starvationDeaths == 0) {
-                this.population += this.acres * this.bushels + bushels / (100 * this.population + 1);
-            }
+            population += acres * bushels + (bushels / (100 * population + 1));
 
             return 0;
         }
 
-        public int harvest ( int acres, int bushelsUsedAsSeed, int harvestModifier){ //total harvest =
-            if ()
-                int harvestValue = (int) Math.random() * 6 + 1; //
+        public int harvest ( int acres, int bushelsUsedAsSeed, int harvestModifier){
+            int harvestValue = ((int) Math.random() * 6 + 1) * bushelsUsedAsSeed; // calculates harvest value by applying the random multiplier
             return harvestValue;
         }
 
-        public int grainEatenByRats ( int i){
+        public int grainEatenByRats ( int bushels, int chanceOfPlague){
+            int plagueChance = (int) Math.random() * 41);
+            int amountEaten = (int) Math.random() * 21 + 10;
 
-            return 0;
+            return bushels = bushels % bushels * amountEaten / 100 ;
         }
 
-        public int newCostOfLand ( int i){
+        public int newCostOfLand (int costOfLand){
+            costOfLand = (int) Math.random() * 7 + 17;
 
-            return 0;
+            return costOfLand;
         }
 
 
