@@ -12,46 +12,50 @@ public class Hammurabi {
     int acresOfLand;
     int landValue;
     int landToFarm;
-    int totalDeaths;
     int grainToEat;
     int plagueDeaths;
     int starvationDeaths;
     boolean uprising = false;
     int immigrants;
-
     int efficiency;
+    int bushelsEatenByRats;
+
+    int totalDeaths;
 
 
     public static void main(String[] args) {
         Hammurabi ham = new Hammurabi();
+        ham.gameInit();
         ham.playGame();
-
+        ham.gameResults();
     }
 
     void playGame(){
-        gameInit();
 
-        askHowManyAcresToBuy(this.landValue, this.bushels);
-        askHowManyAcresToSell(this.acresOfLand);
-        askHowMuchGrainToFeedPeople(this.bushels);
-        askHowManyAcresToPlant(this.acresOfLand, this.population, this.bushels);
+        do {
+            askHowManyAcresToBuy(this.landValue, this.bushels);
+            askHowManyAcresToSell(this.acresOfLand);
+            askHowMuchGrainToFeedPeople(this.bushels);
+            askHowManyAcresToPlant(this.acresOfLand, this.population, this.bushels);
 
-        plagueDeaths(this.population);
-        starvationDeaths(this.population, this.grainToEat);
-        uprising(this.population, this.starvationDeaths);
+            plagueDeaths(this.population);
+            starvationDeaths(this.population, this.grainToEat);
+            uprising(this.population, this.starvationDeaths);
+            if(uprising == true){
+                break;
+            }
 
-        if(starvationDeaths == 0){
-            immigrants(this.population, this.acresOfLand, this.bushels);
-        }
+            if (starvationDeaths == 0) {
+                immigrants(this.population, this.acresOfLand, this.bushels);
+            }
 
-        harvest(this.la);
+            harvest(this.landToFarm);
+            grainEatenByRats(this.bushels);
+            newCostOfLand();
 
-
-
-
-
-
-
+            summaryOfYear();
+            resetValues();
+        } while(uprising == false && year < 11);
 
     }
 
@@ -81,7 +85,18 @@ public class Hammurabi {
                 "It takes 2 bushels of grain to farm an acre of land\n" +
                 "The market price for land fluctuates yearly\n" +
                 "Rule wisely and you will be showered with appreciation at the end of your term.\n" +
-                "Rule poorly and you will be sacrificed to the blood gods!");
+                "Rule poorly and you will be sacrificed to the blood gods!\n\n");
+
+        System.out.println(
+                "O' great Hammurabi!\n" +
+                        "You are in year 1 of your ten year rule.\n" +
+                        "In the previous year 0 people starved to death.\n" +
+                        "In the previous year 5 people entered the kingdom.\n" +
+                        "The population is now 100.\n" +
+                        "We harvested 3000 bushels at 3 bushels per acre.\n" +
+                        "Rats destroyed 200 bushels, leaving 2800 bushels in storage.\n" +
+                        "The city owns 1000 acres of land.\n" +
+                        "Land is currently worth 19 bushels per acre.");
 
 
     }
@@ -89,14 +104,15 @@ public class Hammurabi {
     public void summaryOfYear(){
         System.out.println(
                 "O' great Hammurabi!\n" +
-                "You are in year " + year + " of your ten year rule.\n" +
-                "In the previous year 0 people starved to death.\n" +
-                "In the previous year 5 people entered the kingdom.\n" +
-                "The population is now 1000.\n" +
-                "We harvested 3000 bushels at 3 bushels per acre.\n" +
-                "Rats destroyed 200 bushels, leaving 2800 bushels in storage.\n" +
-                "The city owns 1000 acres of land.\n" +
-                "Land is currently worth 19 bushels per acre.");
+                        "You are in year " + year + " of your ten year rule.\n" +
+                        "In the previous year " + starvationDeaths + " people starved to death.\n" +
+                        "In the previous year " + plagueDeaths + " people died from the plague. \n" +
+                        "In the previous year " + immigrants + " people entered the kingdom.\n" +
+                        "The population is now " + population + ".\n" +
+                        "We harvested " + (landToFarm * efficiency) + " bushels at " + efficiency + " bushels per acre.\n" +
+                        "Rats destroyed " + bushelsEatenByRats + " bushels, leaving " + bushels + " bushels in storage.\n" +
+                        "The city owns " + acresOfLand + " acres of land.\n" +
+                        "Land is currently worth " + landValue + " bushels per acre.");
     }
 
     int getAcresToBuy(String message) {
@@ -180,7 +196,7 @@ public class Hammurabi {
             System.out.print(message);
             try {
                 landToFarm = scanner.nextInt();
-                if(landToFarm > acresOfLand / (population * 10)){
+                if(landToFarm > population * 10){
                     System.out.println("Sire surely you jest, we do not have enough workers to farm that land!");
                 } else if(landToFarm < 0){
                     System.out.println("Sire we are not in the position to destroy our farmland!");
@@ -225,11 +241,12 @@ public class Hammurabi {
 
     public int plagueDeaths(int population){
         int plagueDeaths = 0;
-        int spreadPlague = (int) Math.random();
+        double spreadPlague =  Math.random();
         if(spreadPlague <= 0.15){
             System.out.println("O' great Hammurabi! A plague is ravaging the land! Our population will surely suffer!");
             plagueDeaths = population / 2;
             this.population -= plagueDeaths;
+            this.totalDeaths += plagueDeaths;
             return this.plagueDeaths = plagueDeaths;
 
         } else return this.plagueDeaths = plagueDeaths;
@@ -239,14 +256,24 @@ public class Hammurabi {
         int starvationDeaths = 0;
         if((population * 20) > bushelsToFeedPeople){
             System.out.println("O' great Hammurabi, you did not feed enough people! Some of your followers will starve to death!");
-            starvationDeaths = (population * 20) % bushelsToFeedPeople;
+            starvationDeaths = (population - (bushelsToFeedPeople / 20));
+            this.totalDeaths += starvationDeaths;
             return this.starvationDeaths = starvationDeaths;
         } else return this.starvationDeaths = starvationDeaths;
     }
 
     public boolean uprising(int population, int starvationDeaths){
-        if(starvationDeaths >= (int)(population * 0.45) * 100){
-            System.out.println("O' moronic Hammurabi, for starving your people you will be sacrificed to the blood gods!");
+        if(starvationDeaths >= (int)(population * 0.45)){
+            System.out.println("O' moronic Hammurabi, for starving your people you will be sacrificed to the blood gods!\n\n\n");
+            System.out.println("   ▄██████▄     ▄████████   ▄▄▄▄███▄▄▄▄      ▄████████       ▄██████▄   ▄█    █▄     ▄████████    ▄████████ \n" +
+                    "  ███    ███   ███    ███ ▄██▀▀▀███▀▀▀██▄   ███    ███      ███    ███ ███    ███   ███    ███   ███    ███ \n" +
+                    "  ███    █▀    ███    ███ ███   ███   ███   ███    █▀       ███    ███ ███    ███   ███    █▀    ███    ███ \n" +
+                    " ▄███          ███    ███ ███   ███   ███  ▄███▄▄▄          ███    ███ ███    ███  ▄███▄▄▄      ▄███▄▄▄▄██▀ \n" +
+                    "▀▀███ ████▄  ▀███████████ ███   ███   ███ ▀▀███▀▀▀          ███    ███ ███    ███ ▀▀███▀▀▀     ▀▀███▀▀▀▀▀   \n" +
+                    "  ███    ███   ███    ███ ███   ███   ███   ███    █▄       ███    ███ ███    ███   ███    █▄  ▀███████████ \n" +
+                    "  ███    ███   ███    ███ ███   ███   ███   ███    ███      ███    ███ ███    ███   ███    ███   ███    ███ \n" +
+                    "  ████████▀    ███    █▀   ▀█   ███   █▀    ██████████       ▀██████▀   ▀██████▀    ██████████   ███    ███ \n" +
+                    "                                                                                                 ███    ███ ");
             return this.uprising = true;
         } else return this.uprising = false;
     }
@@ -254,20 +281,78 @@ public class Hammurabi {
     public int immigrants(int population, int acresOfLand, int bushels){
         int immigrants;
         immigrants = (20 * acresOfLand + bushels) / (100 * population) + 1;
+        this.population += immigrants;
         return this.immigrants = immigrants;
     }
 
     public int harvest(int landUsedForFarming){
         int bushelsHarvested = 0;
-        this.efficiency = (rand.nextInt(7) + 1);
-        this.bushels += bushelsHarvested * efficiency;
+        this.efficiency = (rand.nextInt(6 - 1 + 1) + 1);
+        bushelsHarvested = landUsedForFarming * efficiency;
+        this.bushels += bushelsHarvested;
         return bushelsHarvested;
     }
     public int grainEatenByRats(int bushels){
-        int ratInfestation = 0;
+        double cropDestruction = 0;
         int bushelsEatenByRats = 0;
-        
+        cropDestruction = ((Math.random() * (30 - 10 + 1)) + 10) / 100;
+        if(rand.nextInt(100) <= 39){
+            System.out.println("O' great Hammurabi, our crops have been infested by rats! Our crops face destruction!");
+            bushelsEatenByRats = (int) (bushels * cropDestruction);
+            this.bushels -= bushelsEatenByRats;
+            this.bushelsEatenByRats = bushelsEatenByRats;
+            return bushelsEatenByRats;
+        } else {
+            return 0;
+        }
+    }
 
+    public int newCostOfLand(){
+        int landValue;
+        landValue = rand.nextInt(23 - 17 + 1) + 17;
+        this.landValue = landValue;
+        this.year++;
+        return this.landValue;
+    }
+
+    public void resetValues(){
+        this.plagueDeaths = 0;
+        this.bushelsEatenByRats = 0;
+    }
+
+    public void gameResults(){
+        int percentageDied = (totalDeaths / population) * 100;
+        if(percentageDied > 80 || acresOfLand < 300){
+            System.out.println(" ▄█     █▄   ▄██████▄     ▄████████     ███         ███        ▄█    █▄     ▄█          ▄████████    ▄████████    ▄████████ \n" +
+                    "███     ███ ███    ███   ███    ███ ▀█████████▄ ▀█████████▄   ███    ███   ███         ███    ███   ███    ███   ███    ███ \n" +
+                    "███     ███ ███    ███   ███    ███    ▀███▀▀██    ▀███▀▀██   ███    ███   ███         ███    █▀    ███    █▀    ███    █▀  \n" +
+                    "███     ███ ███    ███  ▄███▄▄▄▄██▀     ███   ▀     ███   ▀  ▄███▄▄▄▄███▄▄ ███        ▄███▄▄▄       ███          ███        \n" +
+                    "███     ███ ███    ███ ▀▀███▀▀▀▀▀       ███         ███     ▀▀███▀▀▀▀███▀  ███       ▀▀███▀▀▀     ▀███████████ ▀███████████ \n" +
+                    "███     ███ ███    ███ ▀███████████     ███         ███       ███    ███   ███         ███    █▄           ███          ███ \n" +
+                    "███ ▄█▄ ███ ███    ███   ███    ███     ███         ███       ███    ███   ███▌    ▄   ███    ███    ▄█    ███    ▄█    ███ \n" +
+                    " ▀███▀███▀   ▀██████▀    ███    ███    ▄████▀      ▄████▀     ███    █▀    █████▄▄██   ██████████  ▄████████▀   ▄████████▀  \n" +
+                    "                         ███    ███                                        ▀                                                ");
+        } else if((percentageDied < 80 && percentageDied > 50) || (acresOfLand > 300 && acresOfLand < 700)){
+            System.out.println(" ▄█     █▄   ▄██████▄     ▄████████     ███        ▄█    █▄    ▄██   ▄   \n" +
+                    "███     ███ ███    ███   ███    ███ ▀█████████▄   ███    ███   ███   ██▄ \n" +
+                    "███     ███ ███    ███   ███    ███    ▀███▀▀██   ███    ███   ███▄▄▄███ \n" +
+                    "███     ███ ███    ███  ▄███▄▄▄▄██▀     ███   ▀  ▄███▄▄▄▄███▄▄ ▀▀▀▀▀▀███ \n" +
+                    "███     ███ ███    ███ ▀▀███▀▀▀▀▀       ███     ▀▀███▀▀▀▀███▀  ▄██   ███ \n" +
+                    "███     ███ ███    ███ ▀███████████     ███       ███    ███   ███   ███ \n" +
+                    "███ ▄█▄ ███ ███    ███   ███    ███     ███       ███    ███   ███   ███ \n" +
+                    " ▀███▀███▀   ▀██████▀    ███    ███    ▄████▀     ███    █▀     ▀█████▀  \n" +
+                    "                         ███    ███                                      ");
+        } else if(percentageDied < 50 || acresOfLand > 700){
+            System.out.println("   ▄██████▄   ▄██████▄  ████████▄          ▄█   ▄█▄  ▄█  ███▄▄▄▄      ▄██████▄  \n" +
+                    "  ███    ███ ███    ███ ███   ▀███        ███ ▄███▀ ███  ███▀▀▀██▄   ███    ███ \n" +
+                    "  ███    █▀  ███    ███ ███    ███        ███▐██▀   ███▌ ███   ███   ███    █▀  \n" +
+                    " ▄███        ███    ███ ███    ███       ▄█████▀    ███▌ ███   ███  ▄███        \n" +
+                    "▀▀███ ████▄  ███    ███ ███    ███      ▀▀█████▄    ███▌ ███   ███ ▀▀███ ████▄  \n" +
+                    "  ███    ███ ███    ███ ███    ███        ███▐██▄   ███  ███   ███   ███    ███ \n" +
+                    "  ███    ███ ███    ███ ███   ▄███        ███ ▀███▄ ███  ███   ███   ███    ███ \n" +
+                    "  ████████▀   ▀██████▀  ████████▀         ███   ▀█▀ █▀    ▀█   █▀    ████████▀  \n" +
+                    "                                          ▀                                     ");
+        }
 
     }
 
