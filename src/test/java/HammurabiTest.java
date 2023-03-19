@@ -1,14 +1,15 @@
-package hammurabi;
+package hammurabi.src.test.java;
 
 import static org.junit.Assert.*;
 
+import hammurabi.src.main.java.Hammurabi;
 import org.junit.Before;
 import org.junit.Test;
 
 public class HammurabiTest {
-    
+
     Hammurabi ham;
-    
+
     boolean about(double expected, double actual) {
         return actual > 0.90 * expected && actual < 1.10 * expected;
     }
@@ -42,7 +43,7 @@ public class HammurabiTest {
         assertEquals("In a plague, " + deaths + "% of your people die, not 50%.",
                      50, deaths);
     }
-    
+
     @Test
     public final void testStarvationDeaths() {
         int deaths = ham.starvationDeaths(100, 1639);
@@ -88,7 +89,7 @@ public class HammurabiTest {
             }
         }
         int percentInfestations = infestations / 100;
-        assertTrue("Number of rat infestations is about " + percentInfestations + 
+        assertTrue("Number of rat infestations is about " + percentInfestations +
                    ", not about 40%.", about(400, infestations));
     }
 
