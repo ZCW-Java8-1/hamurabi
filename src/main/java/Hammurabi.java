@@ -39,26 +39,24 @@ public class Hammurabi {
     public int askHowManyAcresToBuy(int price, int bushels) {
         System.out.println("How maybe acres would you like to buy this round? Please choose a value between 0 and " + bushels / price);
         int acresToBuy = scanner.nextInt();
-        if (acresToBuy * price <= price * bushels) {
+        //if (acresToBuy * price <= price * bushels) //use this condition outside of the method
             return acresToBuy;
-        }
-        return "Lord Hammurabi, you cannot afford to make such a purchase at this time...";
     }
 
     public int askHowManyAcresToSell(int acresOwned) {
         int acresToSell = scanner.nextInt();
-        if(acresToSell <= acresOwned){
-
-        }
+        //if(acresToSell <= acresOwned) //use this condition outside of the method
         return acresToSell;
     }
 
     int askHowMuchGrainToFeed(int bushels) {
-        return 0;
+        int grainToFeed = scanner.nextInt();
+        return grainToFeed;
     }
 
     int askHowManyAcresToPlant(int acresOwned, int population, int bushels) {
-        return 0;
+        int acresToPlant = scanner.nextInt();
+        return acresToPlant;
     }
 
     /**
