@@ -41,10 +41,17 @@ public class Hammurabi {
             }
             int grainToFeed = askHowMuchGrainToFeed(bushels);
             System.out.println(status);
-            int acresToPlant = askHowManyAcresToPlant(acresOwned,population,bushels);
+            int acresToPlant = askHowManyAcresToPlant(acresOwned, population, bushels);
             System.out.println(status);
 
 
+            plagueDeaths(population);
+            starvationDeaths(population,bushelsFedToPeople);
+            uprising(population,howManyPeopleStarved);
+            immigrants(population,acresOwned,bushels);
+            harvest(bushelsUsedAsSeed);
+            grainEatenByRats(bushels);
+            newCostOfLand = newCostOfLand();
             yearsLeft--;
         }
 
@@ -133,21 +140,25 @@ public class Hammurabi {
                 starvationDeaths = bushelsDeficit / 20 + 1;
             }
         }
+        System.out.println("Oh no, " + starvationDeaths + " people have died due to starvation!");
         return starvationDeaths;
     }
 
     public boolean uprising(int population, int howManyPeopleStarved) {
+        System.out.println("This is the end, my lord. They people have revolted and they ask for your head");
         return howManyPeopleStarved > (0.45 * population); //checks if people who died of starvation exceeds 45% of the population
     }
 
     public int immigrants(int population, int acres, int bushels) {
         int populationGrowth = (20 * acres + bushels) / (100 * population) + 1;
+        System.out.println("Great news, my lord! " + populationGrowth + " more people have come to live in your kingdom!");
 
         return populationGrowth;
     }
 
     public int harvest(int bushelsUsedAsSeed) {
         int harvestValue = ((int) (Math.random() * 6) + 1) * bushelsUsedAsSeed; // calculates harvest value by applying the random multiplier
+        System.out.println("My lord, thanks to your guidance we have harvested " + harvestValue + " bushels of grain.");
         return harvestValue;
     }
 
@@ -157,6 +168,7 @@ public class Hammurabi {
         int ratRand = (int) (Math.random() * 10) + 1; //random num from 1-11
         int amountEaten = (int) Math.ceil(bushels - eatenPercent);
         if (ratRand > 0 && ratRand <= 4) {
+            System.out.println("Oh no, my lord! A plague of rats has eaten " + amountEaten + " bushels of grain from our reserves!");
             return amountEaten;
         } else return 0;
     }
