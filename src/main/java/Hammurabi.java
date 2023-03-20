@@ -34,20 +34,24 @@ public class Hammurabi {
         while (uprising == false && yearsLeft > 0) { //game continues as long as there's no uprising
             System.out.println("Current turn " + (11 - yearsLeft));
             int acresToBuy = askHowManyAcresToBuy(newCostOfLand, bushels);
+            acresOwned += acresToBuy;
             System.out.println(status);
             if (acresToBuy == 0) {
                 int acresToSell = askHowManyAcresToSell(acresOwned);
+                acresOwned -= acresToSell;
                 System.out.println(status);
+
             }
             int grainToFeed = askHowMuchGrainToFeed(bushels);
+            bushels -= grainToFeed;
             System.out.println(status);
             int acresToPlant = askHowManyAcresToPlant(acresOwned, population, bushels);
             System.out.println(status);
 
-            uprising = uprising(population,howManyPeopleStarved);
+            uprising = uprising(population, howManyPeopleStarved);
             population = population - plagueDeaths(population);
-            population = population - starvationDeaths(population,bushelsFedToPeople);
-            population = population + immigrants(population,acresOwned,bushels);
+            population = population - starvationDeaths(population, bushelsFedToPeople);
+            population = population + immigrants(population, acresOwned, bushels);
             bushels = bushels + harvest(bushelsUsedAsSeed);
             bushels = bushels - grainEatenByRats(bushels);
             newCostOfLand = newCostOfLand();
