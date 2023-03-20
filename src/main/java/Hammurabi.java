@@ -1,8 +1,6 @@
-import java.sql.SQLOutput;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
-import java.lang.Math;
 
 public class Hammurabi {
     Scanner scanner = new Scanner(System.in); //scanner object for taking user input
@@ -13,12 +11,10 @@ public class Hammurabi {
 
     void playGame() {
         // declare local variables here: grain, population, etc.
-
-        int price; //current cost of land
         int population = 100; //current population size
         int bushels = 2800; //current bushels of grain owned
         int acresOwned = 1000; //current acres of land owned
-        int bushelsFedToPeople = 0;
+        int bushelsFedToPeople = 0; //how many bushels to feed
         int howManyPeopleStarved = 0;
         int bushelsUsedAsSeed = 0;
         int newCostOfLand = 19;
@@ -31,7 +27,7 @@ public class Hammurabi {
 
         System.out.println("Welcome, great Hammurabi! You have been chosen to govern the people " + "for the next " + yearsLeft + " years.\nBefore you begin your reign please consider the following: \n" + "Your starting population is " + population + "\nYour starting land is " + acresOwned + " acres.\nYour starting" + " grain reserves are " + bushels + " bushels.\nThe current value of land is " + newCostOfLand + " bushels/acre");
 
-        while (uprising == false && yearsLeft > 0) { //game continues as long as there's no uprising
+        while (uprising(population, howManyPeopleStarved) == false && yearsLeft > 0) { //game continues as long as there's no uprising or turns remain
             System.out.println("Current turn " + (11 - yearsLeft));
             int acresToBuy = askHowManyAcresToBuy(newCostOfLand, bushels);
             acresOwned += acresToBuy;
@@ -48,7 +44,7 @@ public class Hammurabi {
             int acresToPlant = askHowManyAcresToPlant(acresOwned, population, bushels);
             System.out.println(status);
 
-            uprising = uprising(population, howManyPeopleStarved);
+
             population = population - plagueDeaths(population);
             population = population - starvationDeaths(population, bushelsFedToPeople);
             population = population + immigrants(population, acresOwned, bushels);
@@ -80,10 +76,11 @@ public class Hammurabi {
     public int askHowManyAcresToBuy(int price, int bushels) {
         while (true) {
             int acresToBuy = getNumber("How many acres would you like to buy? ");
-            if (acresToBuy * price <= price * bushels) {
+            if (acresToBuy * price <= bushels) {
                 System.out.println("You purchased " + acresToBuy);
                 return acresToBuy;
             }
+            System.out.println("You've not enough bushels, my lord.");
         }
     }
 
