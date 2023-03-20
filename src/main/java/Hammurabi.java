@@ -29,7 +29,7 @@ public class Hammurabi {
         String status = "---------------------------------------------------\nYour current population is " + population + "\nYou own " + acresOwned + " acres of land.\nYou own " + bushels + " grain reserves.\nThe current value of land is " + newCostOfLand + " bushels/acre\n---------------------------------------------------\n";
         // statements go after the declarations
 
-        System.out.println("Welcome, great Hammurabi! You have been chosen to govern the people " + "for the next " + yearsLeft + " years.\nBefore you begin your reign please consider the following: " + "Your starting population is " + population + "\nYour starting land is " + acresOwned + " acres.\nYour starting" + " grain reserves are " + bushels + " bushels.\nThe current value of land is " + newCostOfLand + " bushels/acre");
+        System.out.println("Welcome, great Hammurabi! You have been chosen to govern the people " + "for the next " + yearsLeft + " years.\nBefore you begin your reign please consider the following: \n" + "Your starting population is " + population + "\nYour starting land is " + acresOwned + " acres.\nYour starting" + " grain reserves are " + bushels + " bushels.\nThe current value of land is " + newCostOfLand + " bushels/acre");
 
         while (uprising == false && yearsLeft > 0) { //game continues as long as there's no uprising
             System.out.println("Current turn " + (11 - yearsLeft));
@@ -44,13 +44,12 @@ public class Hammurabi {
             int acresToPlant = askHowManyAcresToPlant(acresOwned, population, bushels);
             System.out.println(status);
 
-
-            plagueDeaths(population);
-            starvationDeaths(population,bushelsFedToPeople);
-            uprising(population,howManyPeopleStarved);
-            immigrants(population,acresOwned,bushels);
-            harvest(bushelsUsedAsSeed);
-            grainEatenByRats(bushels);
+            uprising = uprising(population,howManyPeopleStarved);
+            population = population - plagueDeaths(population);
+            population = population - starvationDeaths(population,bushelsFedToPeople);
+            population = population + immigrants(population,acresOwned,bushels);
+            bushels = bushels + harvest(bushelsUsedAsSeed);
+            bushels = bushels - grainEatenByRats(bushels);
             newCostOfLand = newCostOfLand();
             yearsLeft--;
         }
@@ -140,13 +139,14 @@ public class Hammurabi {
                 starvationDeaths = bushelsDeficit / 20 + 1;
             }
         }
-        System.out.println("Oh no, " + starvationDeaths + " people have died due to starvation!");
+        System.out.println("My lord, " + starvationDeaths + " people have died due to starvation!");
         return starvationDeaths;
     }
 
     public boolean uprising(int population, int howManyPeopleStarved) {
-        System.out.println("This is the end, my lord. They people have revolted and they ask for your head");
+        System.out.println("This is the end, my lord. They people have revolted and they ask for your head!");
         return howManyPeopleStarved > (0.45 * population); //checks if people who died of starvation exceeds 45% of the population
+
     }
 
     public int immigrants(int population, int acres, int bushels) {
