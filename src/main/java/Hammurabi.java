@@ -1,4 +1,5 @@
 import java.sql.SQLOutput;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 import java.lang.Math;
@@ -29,17 +30,17 @@ public class Hammurabi {
 
         System.out.println("Welcome, great Hammurabi! You have been chosen to govern the people " + "for the next " + yearsLeft + " years.\nBefore you begin your reign please consider the following: " + "Your starting population is " + population + "\nYour starting land is " + acresOwned + " acres.\nYour starting" + " grain reserves are " + bushels + " bushels.\nThe current value of land is " + newCostOfLand + " bushels/acre");
 
-        while(uprising = false){ //game continues as long as there's no uprising
-            for (int i = 0; i <= 10; i++) {
-                
-
-
-
-
-
-
+        while (uprising == false && yearsLeft > 0) { //game continues as long as there's no uprising
+            System.out.println("Current turn " + (11 - yearsLeft));
+            int acresToBuy = askHowManyAcresToBuy(newCostOfLand, bushels);
+            if (acresToBuy == 0) {
+                int acresToSell = askHowManyAcresToSell(acresOwned);
             }
+            int grainToFeed = askHowMuchGrainToFeed(bushels);
+            int acresToPlant = askHowManyAcresToPlant(acresOwned,population,bushels);
 
+
+            yearsLeft--;
         }
 
     }
@@ -49,27 +50,58 @@ public class Hammurabi {
     /**
      * METHODS THAT TAKE USER INPUT:
      **/
-    public int askHowManyAcresToBuy(int price, int bushels) {
-        System.out.println("How maybe acres would you like to buy this round? Please choose a value between 0 and " + bushels / price);
-        int acresToBuy = scanner.nextInt();
-        //if (acresToBuy * price <= price * bushels) //use this condition outside of the method
-        return acresToBuy;
+
+    public int getNumber(String message) {
+        while (true) {
+            System.out.print(message);
+            try {
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("\"" + scanner.next() + "\" isn't a number!");
+            }
+        }
     }
+
+    public int askHowManyAcresToBuy(int price, int bushels) {
+        while (true) {
+            int acresToBuy = getNumber("How many acres would you like to buy? ");
+            if (acresToBuy * price <= price * bushels) {
+                System.out.println("You purchased " + acresToBuy);
+                return acresToBuy;
+            }
+        }
+    }
+
 
     public int askHowManyAcresToSell(int acresOwned) {
-        int acresToSell = scanner.nextInt();
-        //if(acresToSell <= acresOwned) //use this condition outside of the method
-        return acresToSell;
+        while (true) {
+            int acresToSell = getNumber("How many acres would you like to sell? ");
+            if (acresToSell <= acresOwned) {
+                System.out.println("You sold " + acresToSell + " acres.");
+                return acresToSell;
+            }
+            System.out.println("You can't sell what you don't own.");
+        }
     }
 
-    int askHowMuchGrainToFeed(int bushels) {
-        int grainToFeed = scanner.nextInt();
-        return grainToFeed;
+    public int askHowMuchGrainToFeed(int bushels) {
+        while (true) {
+            int grainToFeed = getNumber("How much food will you give the peasants?");
+            if (grainToFeed <= bushels) {
+                return grainToFeed;
+            }
+            System.out.println("You can't give what you don't have.");
+        }
     }
 
     int askHowManyAcresToPlant(int acresOwned, int population, int bushels) {
-        int acresToPlant = scanner.nextInt();
-        return acresToPlant;
+        while (true) {
+            int acresToPlant = getNumber("How many acres do you wish to plant?");
+            if (acresToPlant < population * 10 && acresToPlant / 2 < bushels && acresToPlant < acresOwned) {
+                return acresToPlant;
+            }
+            System.out.println("My lord, you don't have the resources to do that right now...");
+        }
     }
 
     /**
@@ -121,15 +153,14 @@ public class Hammurabi {
         int amountEaten = (int) Math.ceil(bushels - eatenPercent);
         if (ratRand > 0 && ratRand <= 4) {
             return amountEaten;
-        }
-        else return 0;
+        } else return 0;
     }
 
 
     public int newCostOfLand() {
-       Random rand = new Random();
+        Random rand = new Random();
         int costOfLand = rand.nextInt(7) + 17; //* (max - min) + min with max being exclusive and min inclusive
-                                                          //24 - 17 = 7    17
+        //24 - 17 = 7    17
         return costOfLand;
     }
 }
