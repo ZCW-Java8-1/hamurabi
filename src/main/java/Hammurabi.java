@@ -26,6 +26,7 @@ public class Hammurabi {
         int immigrants = 0;
         int deaths = 0;
         boolean uprising = false;
+        String status = "---------------------------------------------------\nYour current population is " + population + "\nYou own " + acresOwned + " acres of land.\nYou own " + bushels + " grain reserves.\nThe current value of land is " + newCostOfLand + " bushels/acre\n---------------------------------------------------\n";
         // statements go after the declarations
 
         System.out.println("Welcome, great Hammurabi! You have been chosen to govern the people " + "for the next " + yearsLeft + " years.\nBefore you begin your reign please consider the following: " + "Your starting population is " + population + "\nYour starting land is " + acresOwned + " acres.\nYour starting" + " grain reserves are " + bushels + " bushels.\nThe current value of land is " + newCostOfLand + " bushels/acre");
@@ -33,11 +34,15 @@ public class Hammurabi {
         while (uprising == false && yearsLeft > 0) { //game continues as long as there's no uprising
             System.out.println("Current turn " + (11 - yearsLeft));
             int acresToBuy = askHowManyAcresToBuy(newCostOfLand, bushels);
+            System.out.println(status);
             if (acresToBuy == 0) {
                 int acresToSell = askHowManyAcresToSell(acresOwned);
+                System.out.println(status);
             }
             int grainToFeed = askHowMuchGrainToFeed(bushels);
+            System.out.println(status);
             int acresToPlant = askHowManyAcresToPlant(acresOwned,population,bushels);
+            System.out.println(status);
 
 
             yearsLeft--;
